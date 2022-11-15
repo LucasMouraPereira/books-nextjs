@@ -4,6 +4,18 @@ const nextConfig = {
   swcMinify: true,
   compiler: {
     styledComponents: true
+  },
+  images: {
+    domains: ['assets.vercel.com'],
+    formats: ['image/avif', 'image/webp']
+  },
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: { and: [/\.(js|ts|md)x?$/] },
+      use: [{ loader: '@svgr/webpack' }]
+    })
+    return config
   }
 }
 

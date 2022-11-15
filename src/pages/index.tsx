@@ -1,11 +1,11 @@
-import type { NextPage } from 'next'
+export const getStaticProps = async () => ({
+  props: {
+    type: 'home',
+    metaTitle: 'Ioasys Books | Veja as informações de seus livros favoritos',
+    metaDesc: 'Veja as informações de seus livros favoritos',
+    hasPagination: true
+  },
+  revalidate: 60 * 60 * 2
+})
 
-const Home: NextPage = () => {
-  return (
-    <div>
-      <h1>new project</h1>
-    </div>
-  )
-}
-
-export default Home
+export { default } from 'containers/Home'

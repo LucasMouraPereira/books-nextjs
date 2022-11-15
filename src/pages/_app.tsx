@@ -1,13 +1,16 @@
 import { ThemeProvider } from 'styled-components'
+import { AuthProvider } from 'contexts/auth'
 import type { AppProps } from 'next/app'
 
 import GlobalStyle from 'styles/global'
-import theme from 'styles/theme'
+import { theme } from 'styles/theme/main'
 
 const App = ({ Component, pageProps }: AppProps) => (
   <ThemeProvider theme={theme}>
-    <GlobalStyle />
-    <Component {...pageProps} />
+    <AuthProvider>
+      <GlobalStyle />
+      <Component {...pageProps} />
+    </AuthProvider>
   </ThemeProvider>
 )
 
