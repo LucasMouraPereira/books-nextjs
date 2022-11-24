@@ -1,10 +1,8 @@
 import * as S from './Container.styles'
 
-type ContainerProps = {
-  children: React.ReactNode
-}
+import type { ChildrenProps } from 'types/Children'
 
-const Container = ({ children }: ContainerProps) => (
+const Container = ({ children }: ChildrenProps) => (
   <S.Container>{children}</S.Container>
 )
 

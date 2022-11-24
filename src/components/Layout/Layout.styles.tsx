@@ -12,7 +12,8 @@ export const WrapperLayout = styled.div`
     background-repeat: no-repeat;
     background-blend-mode: darken;
     background-size: cover;
-    height: 100vh;
+    background-position-x: center;
     width: 100vw;
+    height: 100vh;
   `}
 `

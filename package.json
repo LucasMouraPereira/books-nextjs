@@ -12,11 +12,16 @@
     "test": "jest --watch"
   },
   "dependencies": {
+    "@hookform/error-message": "^2.0.1",
     "axios": "^0.27.2",
+    "js-cookie": "^3.0.1",
+    "nanoid": "^4.0.0",
     "next": "12.2.5",
     "polished": "^4.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.39.4",
+    "react-loading-skeleton": "^3.1.0",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
@@ -25,6 +30,7 @@
     "@svgr/webpack": "^6.3.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
+    "@types/js-cookie": "^3.0.2",
     "@types/node": "18.7.15",
     "@types/react": "18.0.18",
     "@types/react-dom": "18.0.6",

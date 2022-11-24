@@ -30,6 +30,8 @@ export const theme = {
 
     overlay: {
       light: transparentize(0.4, colors.white),
+      mediumLight: transparentize(0.68, colors.black['400']),
+      grayer: transparentize(0.6, colors.black['200']),
       dark: transparentize(0.32, colors.black['400']),
       darker: transparentize(0.4, colors.black['400'])
     }

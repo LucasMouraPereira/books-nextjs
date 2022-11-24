@@ -11,5 +11,9 @@ export const colors = {
     200: '#333333'
   },
 
-  gray: '#999999'
+  gray: '#999999',
+
+  rgba: {
+    40: 'rgba(51, 51, 51, 0.4)'
+  }
 } as const

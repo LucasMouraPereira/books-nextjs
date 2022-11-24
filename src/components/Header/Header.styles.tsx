@@ -6,5 +6,5 @@ export const WrapperHeader = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 42px 0;
+  padding: 30px 0;
 `

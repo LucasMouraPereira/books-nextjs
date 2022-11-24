@@ -26,16 +26,3 @@ export const WrapperLogout = styled.div`
     } ;
   `}
 `
-
-export const ButtonLogout = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 32px;
-  height: 32px;
-  border: 1px solid rgba(51, 51, 51, 0.2);
-  border-radius: 20px;
-  transform: matrix(-1, 0, 0, 1, 0, 0);
-  cursor: pointer;
-  transform: rotate(180deg);
-`

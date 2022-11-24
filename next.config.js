@@ -6,7 +6,7 @@ const nextConfig = {
     styledComponents: true
   },
   images: {
-    domains: ['assets.vercel.com'],
+    domains: ['assets.vercel.com', 'd2drtqy2ezsot0.cloudfront.net'],
     formats: ['image/avif', 'image/webp']
   },
   webpack(config) {
