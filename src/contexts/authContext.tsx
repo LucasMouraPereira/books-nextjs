@@ -1,41 +1,37 @@
-import {
-  useContext,
-  useState,
-  createContext,
-  Dispatch,
-  SetStateAction
-} from 'react'
+import { useContext, useState, createContext } from 'react'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import api from 'services/api'
 
-import type { ChildrenProps } from 'types/Children'
+import { Children, Auth } from 'types'
 
-type LoginProps = {
-  email: string
-  password: string
-}
-
-type AuthDefaultValues = {
-  Login: ({ email, password }: LoginProps) => void
-  user: string
-  setUser: Dispatch<SetStateAction<string>>
-}
-
-const authContext: AuthDefaultValues = {
+const authContext: Auth.AuthDefaultValues = {
   Login: () => ({}),
   user: '',
-  setUser: () => ''
+  setUser: () => '',
+  statusAuth: true
 }
 
-export const AuthContext = createContext<AuthDefaultValues>(authContext)
+export const AuthContext = createContext<Auth.AuthDefaultValues>(authContext)
 export const useAuthContext = () => useContext(AuthContext)
 
-export const AuthProvider = ({ children }: ChildrenProps) => {
+export const AuthProvider = ({ children }: Children.ChildrenProps) => {
   const router = useRouter()
   const [user, setUser] = useState<string>('')
+  const [statusAuth, setStatusAuth] = useState<boolean>(true)
 
-  const Login = async ({ email, password }: LoginProps) => {
+  const getErrorMessage = (error: unknown) => {
+    if (error instanceof Error) return error.message
+    return String(error)
+  }
+
+  const reportError = ({ message }: { message: string }) => {
+    if (message.includes('401')) {
+      setStatusAuth(false)
+    }
+  }
+
+  const Login = async ({ email, password }: Auth.LoginProps) => {
     try {
       const { headers, data, status } = await api.post('/auth/sign-in', {
         email: email,
@@ -51,14 +47,15 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
         if (Cookies.get('authorization')) {
           router.push('/')
         }
+        setStatusAuth(true)
       }
     } catch (error) {
-      throw String(error)
+      reportError({ message: getErrorMessage(error) })
     }
   }
 
   return (
-    <AuthContext.Provider value={{ Login, user, setUser }}>
+    <AuthContext.Provider value={{ Login, user, setUser, statusAuth }}>
       {children}
     </AuthContext.Provider>
   )

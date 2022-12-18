@@ -25,10 +25,16 @@ const Card = ({
   publisher,
   published
 }: cardProps) => {
-  const { getBookDetails } = useBooksContext()
+  const { getBookDetails, openDetailsBook, blockScroll } = useBooksContext()
   const withoutImage = '/image/livro-sem-capa.png'
   return (
-    <S.LinkDetailsCard onClick={() => getBookDetails(id)}>
+    <S.LinkDetailsCard
+      onClick={() => {
+        getBookDetails(id)
+        openDetailsBook()
+        blockScroll()
+      }}
+    >
       <S.WrapperCard>
         <S.WrapperImage>
           <Image

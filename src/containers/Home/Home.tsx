@@ -9,6 +9,8 @@ import Container from 'components/Container/Container'
 import Grid from 'components/Grid/Grid'
 import Card from 'components/Card'
 import Pagination from 'components/Pagination'
+import Modal from 'components/Modal'
+import Content from './Content'
 
 import { useBooksContext } from 'contexts/booksContext'
 
@@ -22,15 +24,14 @@ const Home = ({ page }: HomeProps) => {
   const {
     books,
     isLoading,
-    bookDetails,
-    isLoadingDetails,
     props,
     goBack,
-    goNext
+    goNext,
+    isOpen
   }: BookContextDefaultValues = useBooksContext()
   const router = useRouter()
   const [handlePage, setHandlePage] = useState(true)
-  console.log({ bookDetails, isLoadingDetails })
+
   useEffect(() => {
     const authorization = Cookies.get('authorization')
     if (authorization === undefined) {
@@ -41,7 +42,7 @@ const Home = ({ page }: HomeProps) => {
 
   if (!handlePage) return null
 
-  if (!books?.length && isLoading) {
+  if (books?.length && isLoading) {
     return (
       <Layout type={page}>
         <Container>
@@ -58,17 +59,16 @@ const Home = ({ page }: HomeProps) => {
       <Container>
         <Grid loading={false}>
           {books?.map((item: BookDetailsValues) => (
-            <div key={nanoid()}>
-              <Card
-                id={item?.id}
-                url={item?.imageUrl}
-                title={item?.title}
-                authors={item?.authors}
-                pageCount={item?.pageCount}
-                publisher={item?.publisher}
-                published={item?.published}
-              />
-            </div>
+            <Card
+              key={nanoid()}
+              id={item?.id}
+              url={item?.imageUrl}
+              title={item?.title}
+              authors={item?.authors}
+              pageCount={item?.pageCount}
+              publisher={item?.publisher}
+              published={item?.published}
+            />
           ))}
         </Grid>
         <Pagination
@@ -78,6 +78,11 @@ const Home = ({ page }: HomeProps) => {
           goNext={goNext}
         />
       </Container>
+      {isOpen && (
+        <Modal>
+          <Content />
+        </Modal>
+      )}
     </Layout>
   )
 }

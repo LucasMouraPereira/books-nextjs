@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
-import { ErrorMessage } from '@hookform/error-message'
 import { UseFormRegister } from 'react-hook-form'
 
 import Button from '../Button'
@@ -14,13 +13,18 @@ type FormValues = {
 
 type InputProps = {
   label?: string
-  type?: string
+  type: 'email' | 'password'
   placeholder?: string | undefined
-  name: 'email' | 'password'
   register: UseFormRegister<FormValues>
-  required?: boolean
-  maxLength?: number
-  errors?: object | undefined | any
+  required?: string | undefined
+  pattern?: {
+    value: RegExp
+    message: string
+  }
+  minLength?: {
+    value: number
+    message: string
+  }
   hasButton?: boolean
 }
 
@@ -28,11 +32,10 @@ const Input = ({
   label,
   type,
   placeholder,
-  name,
   register,
   required,
-  maxLength,
-  errors,
+  pattern,
+  minLength,
   hasButton
 }: InputProps) => {
   return (
@@ -43,16 +46,14 @@ const Input = ({
           id={type}
           type={type}
           placeholder={placeholder}
-          {...register(name, { required, maxLength: maxLength })}
+          {...register(type, {
+            required: required,
+            pattern: pattern,
+            minLength: minLength
+          })}
         />
       </S.Text>
       {hasButton && <Button type="submit" />}
-
-      <ErrorMessage
-        errors={errors}
-        name="singleErrorInput"
-        render={({ message }) => <p>{message}</p>}
-      />
     </S.WrapperInput>
   )
 }

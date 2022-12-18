@@ -4,17 +4,17 @@ export const LinkDetailsCard = styled.div`
   width: 272px;
   height: 160px;
   cursor: pointer;
+  box-shadow: 0px 6px 24px rgba(84, 16, 95, 0.13);
+  border-radius: 4px;
+  &:hover {
+    box-shadow: 0px 16px 80px rgba(84, 16, 95, 0.32);
+  }
 `
 
 export const WrapperCard = styled.div`
-  width: 100%;
-  max-width: 272px;
   height: 160px;
   background: #ffffff;
-  box-shadow: 0px 6px 24px rgba(84, 16, 95, 0.13);
-  border-radius: 4px;
   padding: 16px 28px 19px 16px;
-
   display: flex;
   flex-direction: row;
   gap: 16px;
@@ -25,7 +25,6 @@ export const WrapperImage = styled.div`
   width: 100%;
   max-width: 81px;
   height: 122px;
-  background: url(IMG_0360.png);
   filter: drop-shadow(0px 6px 9px rgba(0, 0, 0, 0.15));
 `
 

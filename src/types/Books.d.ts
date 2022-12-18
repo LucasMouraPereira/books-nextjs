@@ -3,6 +3,13 @@ export type getBooksProps = {
   totalPages: number
   amount: number
   authorization: string | undefined
+  params:
+    | {
+        title: string | undefined
+        category: string | undefined
+      }
+    | undefined
+    | null
 }
 
 export type BooksProps = {
@@ -49,10 +56,20 @@ export type BookListValues = {
 export type BookContextDefaultValues = {
   isLoading: boolean
   books: BookList
+  handleListBooks: (paramsSearcherBook) => void
   isLoadingDetails: boolean
-  bookDetails: bookDetailsValues
+  bookDetails: BookDetailsValues
   props: getBooksProps
   getBookDetails: ({ id }: BooksProps) => void
   goBack: () => void
   goNext: () => void
+  openDetailsBook: () => void
+  isOpen: boolean
+  allowScroll: () => void
+  blockScroll: () => void
+}
+
+export type paramsSearcherBook = {
+  title: string
+  category: string
 }

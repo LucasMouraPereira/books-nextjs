@@ -1,13 +1,15 @@
 import { useContext, useState, useEffect, createContext } from 'react'
 import Cookies from 'js-cookie'
 import { getBooks, getBook } from 'services/getBooks'
+import { useScrollBlock } from 'hooks/useScrollBlock'
 
 import type { ChildrenProps } from 'types/Children'
 import type {
   BooksProps,
   BookListValues,
   BookDetailsValues,
-  BookContextDefaultValues
+  BookContextDefaultValues,
+  paramsSearcherBook
 } from 'types/Books'
 
 const BookListState: BookListValues = {
@@ -30,9 +32,15 @@ const BookListState: BookListValues = {
   totalPages: 0
 }
 
+const paramsBook: paramsSearcherBook = {
+  title: '',
+  category: ''
+}
+
 const bookContext: BookContextDefaultValues = {
   isLoading: true,
   books: BookListState.data,
+  handleListBooks: () => ({}),
   isLoadingDetails: true,
   bookDetails: {
     authors: [],
@@ -52,17 +60,24 @@ const bookContext: BookContextDefaultValues = {
     page: 1,
     totalPages: 0,
     amount: 12,
-    authorization: ''
+    authorization: '',
+    params: paramsBook
   },
   getBookDetails: () => ({}),
   goBack: () => ({}),
-  goNext: () => ({})
+  goNext: () => ({}),
+  openDetailsBook: () => ({}),
+  isOpen: false,
+  allowScroll: () => ({}),
+  blockScroll: () => ({})
 }
 
 export const BooksContext = createContext<BookContextDefaultValues>(bookContext)
 export const useBooksContext = () => useContext(BooksContext)
 
 export const BooksProvider = ({ children }: ChildrenProps) => {
+  const [blockScroll, allowScroll] = useScrollBlock()
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [bookList, setBookList] = useState<BookListValues>(BookListState)
   const [bookDetails, setBookDetails] = useState<BookDetailsValues>(
     bookContext.bookDetails
@@ -76,15 +91,16 @@ export const BooksProvider = ({ children }: ChildrenProps) => {
     page: changePage,
     totalPages: Math.ceil(totalPages),
     amount: 12,
-    authorization
+    authorization,
+    params: paramsBook || undefined || null
   }
 
-  const handleListBooks = async () => {
+  const handleListBooks = async (params = paramsBook) => {
     try {
       setIsLoading(true)
-
+      const filters = { ...props, params }
       if (props.authorization !== undefined) {
-        const books = await getBooks(props)
+        const books = await getBooks(filters)
         setBookList(books)
         setIsLoading(false)
       }
@@ -122,6 +138,10 @@ export const BooksProvider = ({ children }: ChildrenProps) => {
     }
   }
 
+  const openDetailsBook = () => {
+    setIsOpen(!isOpen)
+  }
+
   useEffect(() => {
     handleListBooks()
   }, [props.authorization, changePage])
@@ -131,12 +151,17 @@ export const BooksProvider = ({ children }: ChildrenProps) => {
       value={{
         isLoading,
         books: data,
+        handleListBooks,
         isLoadingDetails,
         bookDetails,
         props,
         getBookDetails,
         goBack,
-        goNext
+        goNext,
+        openDetailsBook,
+        isOpen,
+        allowScroll,
+        blockScroll
       }}
     >
       {children}

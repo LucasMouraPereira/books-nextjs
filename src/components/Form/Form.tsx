@@ -11,36 +11,66 @@ type FormValues = {
 }
 
 const Form = () => {
-  const { Login } = useAuthContext()
+  const { Login, statusAuth } = useAuthContext()
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm<FormValues>()
-  const onSubmit: SubmitHandler<FormValues> = data =>
+  const onSubmit: SubmitHandler<FormValues> = data => {
     Login({ email: data.email, password: data.password })
+    reset()
+  }
+  const pattern = {
+    value: /\S+@\S+\.\S+/,
+    message: 'Este email é invalido.'
+  }
+
+  const minLength = {
+    value: 8,
+    message: 'Sua senha deve ter no mínimo 8 caracteres.'
+  }
 
   return (
     <S.Form onSubmit={handleSubmit(onSubmit)}>
       <Input
-        label="Email"
+        label="email"
         type="email"
-        name="email"
         register={register}
-        required={true}
-        maxLength={30}
-        errors={errors}
+        required="Campo obrigatório"
+        pattern={pattern}
       />
       <Input
-        label="Senha"
+        label="password"
         type="password"
-        name="password"
         register={register}
-        required={true}
-        maxLength={12}
-        errors={errors}
+        required="Campo obrigatório"
+        minLength={minLength}
         hasButton
       />
+      {errors.email && (
+        <S.WrapperMessage>
+          <S.triangle />
+          <S.ErrorMessage role="alert">{errors.email.message}</S.ErrorMessage>
+        </S.WrapperMessage>
+      )}
+      {errors.password && (
+        <S.WrapperMessage>
+          <S.triangle />
+          <S.ErrorMessage role="alert">
+            {errors.password.message}
+          </S.ErrorMessage>
+        </S.WrapperMessage>
+      )}
+      {!statusAuth && (
+        <S.WrapperMessage>
+          <S.triangle />
+          <S.ErrorMessage role="alert">
+            Email e/ou senha incorretos.
+          </S.ErrorMessage>
+        </S.WrapperMessage>
+      )}
     </S.Form>
   )
 }

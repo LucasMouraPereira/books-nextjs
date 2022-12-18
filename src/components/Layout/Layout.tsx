@@ -1,7 +1,6 @@
 import Container from 'components/Container'
 import Header from 'components/Header'
-
-import { useMediaQuery } from 'hooks/useMediaQuery'
+import Sidebar from 'components/Sidebar'
 
 import * as S from './Layout.styles'
 
@@ -11,11 +10,11 @@ type LayoutProps = {
 }
 
 const Layout = ({ type, children }: LayoutProps) => {
-  const isMobile = useMediaQuery('(max-width: 360px)')
   const bg1 = '/image/background1.jpg'
-  const bg2 = isMobile ? '/image/background2_xs.jpg' : '/image/background2.jpg'
+  const bg2 = '/image/background2.jpg'
   return (
     <S.WrapperLayout bg={type === 'login' ? bg1 : bg2}>
+      {type !== 'login' && <Sidebar />}
       <Container>
         {type !== 'login' && <Header />}
         {children}

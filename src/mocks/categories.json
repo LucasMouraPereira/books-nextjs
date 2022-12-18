@@ -1,0 +1,94 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "label": "biographies",
+      "active": false
+    },
+    {
+      "id": "2",
+      "label": "collections",
+      "active": false
+    },
+    {
+      "id": "3",
+      "label": "behavior",
+      "active": false
+    },
+    {
+      "id": "4",
+      "label": "tales",
+      "active": false
+    },
+    {
+      "id": "5",
+      "label": "literary-criticism",
+      "active": false
+    },
+    {
+      "id": "6",
+      "label": "scienceFiction",
+      "active": false
+    },
+    {
+      "id": "7",
+      "label": "folklore",
+      "active": false
+    },
+    {
+      "id": "8",
+      "label": "genealogy",
+      "active": false
+    },
+    {
+      "id": "9",
+      "label": "humor",
+      "active": false
+    },
+    {
+      "id": "10",
+      "label": "children",
+      "active": false
+    },
+    {
+      "id": "11",
+      "label": "games",
+      "active": false
+    },
+    {
+      "id": "12",
+      "label": "newspapers",
+      "active": false
+    },
+    {
+      "id": "13",
+      "label": "brazilian-literature",
+      "active": false
+    },
+    {
+      "id": "14",
+      "label": "foreign-literature",
+      "active": false
+    },
+    {
+      "id": "15",
+      "label": "rare-books",
+      "active": false
+    },
+    {
+      "id": "16",
+      "label": "manuscripts",
+      "active": false
+    },
+    {
+      "id": "17",
+      "label": "poetry",
+      "active": false
+    },
+    {
+      "id": "18",
+      "label": "another-subjects",
+      "active": false
+    }
+  ]
+}
